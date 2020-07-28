@@ -1,2 +1,1 @@
-# sudarpo.github.io
-app.sudarpo.net
+# sudarpo.net | sudarpo.github.io
