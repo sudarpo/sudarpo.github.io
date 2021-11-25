@@ -1,12 +1,20 @@
 # sudarpo.net | sudarpo.github.io
 
-## Random
+## UUID with crypto.randomUUID()
 
 <pre id="text"></pre>
 
+```
 <script>
-console.log(crypto.randomUUID());
+let count = 1;
+let uuidList = '';
+do {
+    let random = crypto.randomUUID();
+    uuidList += random + '\r\n';
+    count++;
 
-let random = crypto.randomUUID();
-document.getElementById("text").innerText = random;
+} while (count <= 30)
+
+document.getElementById("text").innerText = uuidList;
 </script>
+```
