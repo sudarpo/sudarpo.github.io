@@ -1,3 +1,4 @@
+console.log("App")
 let count = 1;
 let uuidList = "";
 do {

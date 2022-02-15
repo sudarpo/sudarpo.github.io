@@ -2,4 +2,4 @@
 
 <pre id="text"></pre>
 
-<script src='app.js'>
+<script src='app_uuid.js'>
