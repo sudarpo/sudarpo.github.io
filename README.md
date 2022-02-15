@@ -1,5 +1,3 @@
-# UUID with crypto.randomUUID()
+# sudarpo.net
 
-<pre id="text"></pre>
-
-<script src='app_uuid.js'>
+[UUID Generator with javascript](/uuid)
