@@ -1,3 +1,4 @@
-# sudarpo.net
+# sudarpo.net tools
 
-[UUID Generator with javascript](/uuid)
+## - [UUID Generator with crypto.randomUUID](/uuid)
+## - [CIDR Calculator](/cidr)
