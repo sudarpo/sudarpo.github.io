@@ -150,11 +150,41 @@
         return tableBody;
     }
 
+    function generateResultCard (result) {
+        
+        let reservedIpsHtml = ``;
+        for (let rsvd of result.reserved_ips) {
+            reservedIpsHtml += `${rsvd.label}: ${rsvd.ip} <br/> \n`;
+        }
+
+        const cardHtml = `<div class="col"> \n` +
+                `<div class="card"> \n` +
+                    `<div class="card-body"> \n` +
+                        `<h5 class="card-title">${result.cidr_range}</h5> \n` +
+                        `<div class="card-text"> \n` +
+                            `CIDR Input: ${result.cidr_input} <br/>\n` +
+                            `CIDR Range: ${result.cidr_range} <br/>\n` +
+                            `IP Range: ${result.ip_start} - ${result.ip_end}<br/>\n` +
+                            `Subnet mask: ${result.netmask} <br/>\n` +
+                            `Wildcard bits: ${result.wildcard_bits} <br/>\n` +
+                            `Total hosts: ${result.total_host} <br/>\n` +
+                            `Total usable IPs: ${result.total_usable_ips} <br/><br/>\n` +
+                            `Reserved IPs: <br/>${reservedIpsHtml} <br/>\n` +
+                        `</div> \n` +
+                    `</div> \n` +
+                `</div> \n` +
+            `</div> \n`;
+
+        return cardHtml;
+    }
+
     $("body").on("click", "#btn-calculate", function(e) {
         console.log("Calculate");
 
         let cidr_results = [];
         let result_table = '';
+        let result_card = '';
+
         const cidr_input = $("#cidr_input").val().trim();
         localStorage.setItem(CIDR_INPUT_KEY, cidr_input);
         const cidr_entries = cidr_input.split("\n");
@@ -167,10 +197,12 @@
             cidr_results.push(result);
 
             result_table += generateResultTable(result);
+            result_card += generateResultCard(result);
         }
 
         console.log(cidr_results);
         $("#table-result-body").html(result_table);
+        $("#cards-result").html(result_card);
 
     });
 
