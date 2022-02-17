@@ -3,15 +3,28 @@
 
     const CIDR_INPUT_KEY = "cidr_input";
     
-    const default_input = `10.1.0.0/16\n10.0.0.0/24\n10.0.0.0/26\n` +
+    ////////////////////////
+
+    startApp();
+
+    ////////////////////////
+
+    function startApp() {
+
+        const default_input = `10.1.0.0/16\n10.0.0.0/24\n10.0.0.0/26\n` +
         `172.18.0.0/18\n172.18.128.0/18\n172.18.100.0/24\n172.18.100.35/28\n10.2.1.80/27`;
 
-    if (localStorage.getItem(CIDR_INPUT_KEY) !== null) {
-        const cidr_input = localStorage.getItem(CIDR_INPUT_KEY);
-        $("#cidr_input").val(cidr_input);
-    }
-    else {
-        $("#cidr_input").val(default_input);
+        if (localStorage.getItem(CIDR_INPUT_KEY) !== null) {
+            const cidr_input = localStorage.getItem(CIDR_INPUT_KEY);
+            $("#cidr_input").val(cidr_input);
+        }
+        else {
+            $("#cidr_input").val(default_input);
+        }
+
+        $("#acc-show-result").hide();
+        addCalculateCidrButtonClickListener();
+
     }
 
     function generateCidrData(cidr_input) {
@@ -178,9 +191,19 @@
         return cardHtml;
     }
 
-    $("body").on("click", "#btn-calculate", function(e) {
-        console.log("Calculate");
+    function addCalculateCidrButtonClickListener() {
 
+        $("body").on("click", "#btn-calculate", function(e) {
+            calculateCidrButtonClicked();
+        });
+
+    }
+
+    function calculateCidrButtonClicked() {
+
+        console.log("Calculate");
+        $("#acc-show-result").hide();
+    
         let cidr_results = [];
         let result_table = '';
         let result_card = '';
@@ -203,8 +226,8 @@
         console.log(cidr_results);
         $("#table-result-body").html(result_table);
         $("#cards-result").html(result_card);
+        $("#acc-show-result").show("fast");
 
-    });
-
+    }
 
 })();
