@@ -1,6 +1,7 @@
 # sudarpo.net tools
 
 ## - [UUID Generator with crypto.randomUUID](/uuid)
+## - [Password Generator](/password)
 ## - [CIDR Calculator](/cidr)
 ## - [Donkey App - Currency Converter](/donkey-app)
 
