@@ -46,6 +46,9 @@
                 v-on:input="recreateList" 
                 v-bind:disabled="includeSymbolsFlag == false">
         </div>
+
+        <button type="submit" id="btn-generate" class="btn btn-primary mb-3"
+            v-on:click="recreateList">Generate</button>
         
         <pre id="text" class="my-3">{{ passwordList }}</pre>
         
