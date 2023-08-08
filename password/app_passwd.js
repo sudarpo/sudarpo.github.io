@@ -5,10 +5,10 @@ window.onload = () => {
         el: "#app",
         data() {
             return {
-                passwordList: "",
-                passwordLength: 35,
+                passwordList: [],
+                passwordLength: 40,
                 includeSymbolsFlag: true,
-                symbolsList: "- = # $ & % ! @"
+                symbolsList: "+ - = # $ & % ! @ ; [ ]"
             }
         },
 
@@ -18,45 +18,66 @@ window.onload = () => {
 
         methods: {
             recreateList() {
+                const symbols = this.symbolsList.replace(/ /ig, '');
+                this.passwordList = [];
                 let count = 1;
-                let list = "";
-                let symbols = this.symbolsList.replace(/ /ig, '');
                 do {
                     let random = this.generatePassword(this.passwordLength, symbols, this.includeSymbolsFlag);
-                    list += random + "\r\n";
+                    this.passwordList.push(random);
                     count++;
-                } while (count <= 10);
-
-                this.passwordList = list;
+                } while (count <= 15);
 
             },
 
             generatePassword(length, customSymbols, includeSymbols) {
-                let uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                let lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
-                let numberChars = "0123456789";
-                // let defaultSymbols = "!@#$%^&*()-_=+[]{}|;:,.<>?";
+                const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+                const numberChars = "0123456789";
+                // const defaultSymbols = "!@#$%^&*()-_=+[]{}|;:,.<>?";
             
-                let characters = "";
-                characters += uppercaseChars;
-                characters += lowercaseChars;
-                characters += numberChars;
-                if (includeSymbols) characters += customSymbols;
+                let alphabetsOnly = "";
+                alphabetsOnly += uppercaseChars;
+                alphabetsOnly += lowercaseChars;
+
+                let allCharacters = "";
+                allCharacters += uppercaseChars;
+                allCharacters += lowercaseChars;
+                allCharacters += numberChars;
+                if (includeSymbols) allCharacters += customSymbols;
             
+                const boundary = 5; // first # letters are alphabets only
                 let password = "";
-                for (let i = 0; i < length; i++) {
-                    const randomIndex = this.getRandomInt(0, characters.length - 1);
-                    password += characters.charAt(randomIndex);
+                let lastRandom = { index: -1 }; // create object to pass by reference
+
+                for (let i = 0; i < boundary; i++) {
+                    password += this.getRandomLetter(alphabetsOnly, lastRandom);
+                }
+                
+                for (let i = boundary; i < length; i++) {
+                    password += this.getRandomLetter(allCharacters, lastRandom);
                 }
             
                 return password;
+            },
+
+            getRandomLetter(charactersList, lastRandom) {
+                // Ensure that random index is not the same as generated previously.
+                let randomIndex = -1;
+                do {
+                    randomIndex = this.getRandomInt(0, charactersList.length - 1);
+                    // if (lastRandom.index == randomIndex) 
+                    //      console.log("randomIndex", lastRandom.index == randomIndex, randomIndex, lastRandom.index);
+                } while (lastRandom.index > -1 && lastRandom.index == randomIndex);
+
+                lastRandom.index = randomIndex;
+                return charactersList.charAt(randomIndex);
             },
 
             getRandomInt(min, max) {
                 const randomBuffer = new Uint32Array(1);
                 window.crypto.getRandomValues(randomBuffer);
             
-                let randomNumber = randomBuffer[0] / (0xffffffff + 1);
+                const randomNumber = randomBuffer[0] / (0xffffffff + 1);
             
                 min = Math.ceil(min);
                 max = Math.floor(max);
