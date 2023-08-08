@@ -7,7 +7,10 @@ window.onload = () => {
             return {
                 passwordList: [],
                 passwordLength: 40,
-                includeSymbolsFlag: true,
+                includeUppercase: true,
+                includeLowercase: true,
+                includeNumbers: true,
+                includeSymbols: true,
                 symbolsList: "+ - = # $ & % ! @ ; [ ]"
             }
         },
@@ -22,27 +25,27 @@ window.onload = () => {
                 this.passwordList = [];
                 let count = 1;
                 do {
-                    let random = this.generatePassword(this.passwordLength, symbols, this.includeSymbolsFlag);
+                    let random = this.generatePassword(this.passwordLength, symbols, this.includeSymbols, this.includeUppercase, this.includeLowercase, this.includeNumbers);
                     this.passwordList.push(random);
                     count++;
                 } while (count <= 15);
 
             },
 
-            generatePassword(length, customSymbols, includeSymbols) {
+            generatePassword(length, customSymbols, includeSymbols, includeUppercase, includeLowercase, includeNumbers) {
                 const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                 const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
                 const numberChars = "0123456789";
                 // const defaultSymbols = "!@#$%^&*()-_=+[]{}|;:,.<>?";
             
                 let alphabetsOnly = "";
-                alphabetsOnly += uppercaseChars;
-                alphabetsOnly += lowercaseChars;
+                if (includeUppercase) alphabetsOnly += uppercaseChars;
+                if (includeLowercase) alphabetsOnly += lowercaseChars;
 
                 let allCharacters = "";
-                allCharacters += uppercaseChars;
-                allCharacters += lowercaseChars;
-                allCharacters += numberChars;
+                if (includeUppercase) allCharacters += uppercaseChars;
+                if (includeLowercase) allCharacters += lowercaseChars;
+                if (includeNumbers) allCharacters += numberChars;
                 if (includeSymbols) allCharacters += customSymbols;
             
                 const boundary = 5; // first # letters are alphabets only
@@ -50,7 +53,12 @@ window.onload = () => {
                 let lastRandom = { index: -1 }; // create object to pass by reference
 
                 for (let i = 0; i < boundary; i++) {
-                    password += this.getRandomLetter(alphabetsOnly, lastRandom);
+                    if (includeUppercase === false && includeLowercase === false) {
+                        password += this.getRandomLetter(allCharacters, lastRandom);
+                    }
+                    else {
+                        password += this.getRandomLetter(alphabetsOnly, lastRandom);
+                    }
                 }
                 
                 for (let i = boundary; i < length; i++) {

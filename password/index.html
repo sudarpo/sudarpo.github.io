@@ -44,15 +44,37 @@
         
         <div class="input-group mb-3">
             <div class="input-group-text">
-                <input class="form-check-input mt-0" type="checkbox" value="" id="optionIncludeSymbols" 
-                    v-model="includeSymbolsFlag" 
+                <input class="form-check-input mt-0" type="checkbox" value="" id="optionIncludeUppercase" 
+                    v-model="includeUppercase" 
                     v-on:change="recreateList">
             </div>
-            <label class="input-group-text" for="optionIncludeSymbols">Include symbols</label>
+            <label class="input-group-text" for="optionIncludeUppercase">Uppercase</label>
+
+            <div class="input-group-text">
+                <input class="form-check-input mt-0" type="checkbox" value="" id="optionIncludeLowercase" 
+                    v-model="includeLowercase" 
+                    v-on:change="recreateList">
+            </div>
+            <label class="input-group-text" for="optionIncludeLowercase">Lowercase</label>
+
+            <div class="input-group-text">
+                <input class="form-check-input mt-0" type="checkbox" value="" id="optionIncludeNumbers" 
+                    v-model="includeNumbers" 
+                    v-on:change="recreateList">
+            </div>
+            <label class="input-group-text" for="optionIncludeNumbers">Numbers</label>
+
+            <div class="input-group-text">
+                <input class="form-check-input mt-0" type="checkbox" value="" id="optionIncludeSymbols" 
+                    v-model="includeSymbols" 
+                    v-on:change="recreateList">
+            </div>
+            <label class="input-group-text" for="optionIncludeSymbols">Symbols</label>
+
             <input type="text" class="form-control" placeholder="Symbols list" value="" 
                 v-model="symbolsList" 
                 v-on:input="recreateList" 
-                v-bind:disabled="includeSymbolsFlag == false">
+                v-bind:disabled="includeSymbols == false">
         </div>
 
         <button type="submit" id="btn-generate" class="btn btn-primary mb-3"
