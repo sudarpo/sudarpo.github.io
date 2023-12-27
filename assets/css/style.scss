@@ -4,6 +4,9 @@
 @import "{{ site.theme }}";
 
 .main-content {
+    height: 85vh;
+    position: relative;
+
     @include large {
         max-width: 80rem;
     }
@@ -11,11 +14,38 @@
 
 .page-header {
     @include large {
-      padding: 1rem 3rem;
+      padding: 2rem 3rem;
     }
 }
 
 .project-tagline {
     display: none;
     visibility: hidden;
+}
+
+li {
+    margin: 0.6rem;
+}
+
+blockquote.sc-footer {
+    margin-top: 5rem;
+
+    @include large {
+        position: absolute;
+        bottom: 2rem;
+        width: 70rem;
+        border-top: solid 1px #eff0f1;
+    }
+
+    @include small {
+        margin-top: 10rem;
+    }
+}
+
+.site-footer {
+    @include large {
+        position: absolute;
+        bottom: 1rem;
+        width: 70rem;
+    }
 }
