@@ -1,4 +1,4 @@
-# sudarpo.net
+<!--- (# sudarpo.net) -->
 
 ## Tools
 - [UUID Generator with crypto.randomUUID](/uuid)
@@ -14,7 +14,7 @@
 
 <blockquote class="blockquote">
     <footer class="blockquote-footer">
-        <a href="https://sudarpo.net">sudarpo chong (sudarpo.net)</a><br/>
-        <a href="https://www.credly.com/users/sudarpo-chong/badges">credly badges</a><br/>
+        <a href="https://sudarpo.net">@ sudarpo chong</a> |
+        <a href="https://www.credly.com/users/sudarpo-chong/badges" target="_blank">credly</a><br/>
     </footer>
 </blockquote>
