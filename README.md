@@ -9,12 +9,3 @@
 
 ## Others
 - Coming soon
-
-<hr/>
-
-<blockquote class="blockquote sc-footer">
-    <footer class="blockquote-footer">
-        <a href="https://sudarpo.net">@ sudarpo chong</a> |
-        <a href="https://www.credly.com/users/sudarpo-chong/badges" target="_blank">credly</a><br/>
-    </footer>
-</blockquote>

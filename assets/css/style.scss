@@ -29,6 +29,7 @@ li {
 
 blockquote.sc-footer {
     margin-top: 5rem;
+    padding: 1rem;
 
     @include large {
         position: absolute;
@@ -43,6 +44,8 @@ blockquote.sc-footer {
 }
 
 .site-footer {
+    padding-top: 1rem;
+
     @include large {
         position: absolute;
         bottom: 1rem;
