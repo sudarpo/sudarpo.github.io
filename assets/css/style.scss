@@ -4,7 +4,7 @@
 @import "{{ site.theme }}";
 
 .main-content {
-    height: 85vh;
+    height: 80vh;
     position: relative;
 
     @include large {
@@ -49,6 +49,6 @@ blockquote.sc-footer {
     @include large {
         position: absolute;
         bottom: 1rem;
-        width: 70rem;
+        width: 60vw;
     }
 }
