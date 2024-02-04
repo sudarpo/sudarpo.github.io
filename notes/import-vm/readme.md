@@ -579,6 +579,6 @@ And finally after 2-3 hours, it throws the following error.
 
 ## References
 
-https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html
-https://docs.aws.amazon.com/cli/latest/reference/ec2/import-image.html
-https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-instance-permissions.html
+- [AWS VM Import](https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html)
+- [aws cli ec2 import-image](https://docs.aws.amazon.com/cli/latest/reference/ec2/import-image.html)
+- [Fleet Manager required permission](https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-instance-permissions.html)
