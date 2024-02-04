@@ -1,0 +1,50 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::ec2-import-demo-20240204999999",
+                "arn:aws:s3:::ec2-import-demo-20240204999999/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:GetBucketAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::ec2-import-demo-20240204999999",
+                "arn:aws:s3:::ec2-import-demo-20240204999999/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:ModifySnapshotAttribute",
+                "ec2:CopySnapshot",
+                "ec2:RegisterImage",
+                "ec2:Describe*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "license-manager:GetLicenseConfiguration",
+                "license-manager:UpdateLicenseSpecificationsForResource",
+                "license-manager:ListLicenseSpecificationsForResource"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+[
+  {
+    "Description": "hvwindows2012r2",
+    "Format": "vhd",
+    "Url": "s3://ec2-import-demo-20240204999999/win2012r2-9600.16415.vhd"
+  }
+]

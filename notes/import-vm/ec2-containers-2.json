@@ -1,0 +1,7 @@
+[
+  {
+    "Description": "win10devtest",
+    "Format": "vmdk",
+    "Url": "s3://ec2-import-demo-20240204999999/WinDev2004Eval-disk1.vmdk"
+  }
+]
