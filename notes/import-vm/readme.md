@@ -67,32 +67,31 @@ If you want to use existing bucket, you can skip this step.
 
 ### 4. Create IAM Role for EC2 Import Task
 
-1. Create a trust policy file, save to your local disk.
-
-    ```
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Principal": { "Service": "vmie.amazonaws.com" },
-                "Action": "sts:AssumeRole",
-                "Condition": {
-                    "StringEquals":{
-                    "sts:Externalid": "vmimport"
-                    }
-                }
-            }
-        ]
-    }
-    ```
-
 1. Create IAM role from AWS CLI.
 
-    1. Create trust policy json file - `trust-policy.json`.
+    1. Create trust policy json file, save to your local disk - `trust-policy.json`.
+
+        ```
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Principal": { "Service": "vmie.amazonaws.com" },
+                    "Action": "sts:AssumeRole",
+                    "Condition": {
+                        "StringEquals":{
+                        "sts:Externalid": "vmimport"
+                        }
+                    }
+                }
+            ]
+        }
+        ```
+
     1. Create IAM Role - `team99-vmimport-role`.
         ```
-        aws iam create-role --role-name team99-vmimport-role --assume-role-policy-document "file://C:\PATH_TO_YOUR_FILE\trust-policy.json"
+        aws iam create-role --role-name team99-vmimport-role --assume-role-policy-document "file://C:\PATH_TO_YOUR_FILE\trust-policy-vmimport.json"
         ```
 
     1. Create role policy file - `role-policy.json`.
@@ -310,7 +309,43 @@ If you want to use existing bucket, you can skip this step.
     ![](images/create-role-step-03-2.jpg)
     ![](images/roles-02.jpg)
 
-1. Create EC2 Security Group in default VPC - name it `team99-ec2-importdemo-sg`. Leave inbound rules empty and outbound rules as-is.
+    **Alternative method** - Create IAM Instance Profile using CLI  
+
+    1. Create trust policy file in your local disk - `trust-policy-ec2.json`.
+        ```
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Sid": "",
+                    "Effect": "Allow",
+                    "Principal": {
+                        "Service": "ec2.amazonaws.com"
+                    },
+                    "Action": "sts:AssumeRole"
+                }
+            ]
+        }
+        ```
+    1. Execute below command.
+        ```
+        # Create IAM Role
+        aws iam create-role --role-name team99-ec2-fleet-role --assume-role-policy-document "file://C:\PATH_TO_YOUR_FILE\trust-policy-vmimport.json"
+
+        # Attach AmazonSSMManagedInstanceCore policy
+        aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore --role-name team99-ec2-fleet-role
+        
+        # Attach AmazonSSMDirectoryServiceAccess policy
+        aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/AmazonSSMDirectoryServiceAccess --role-name team99-ec2-fleet-role
+
+        # Create IAM instance profile
+        aws iam create-instance-profile --instance-profile-name team99-ec2-fleet-instance-profile
+
+        # Add instance profile to IAM Role
+        aws iam add-role-to-instance-profile --instance-profile-name team99-ec2-fleet-instance-profile --role-name team99-ec2-fleet-role
+        ```
+
+1. Create EC2 Security Group in **default VPC** - name it `team99-ec2-importdemo-sg`. Leave inbound rules empty and outbound rules as-is. We will be using Fleet Manager to RDP to the VM. No inbound rules is required.
     ![](images/ec2-security-group.jpg)
 
 1. From **AMIs** > Owned by me > select the newly created AMI and click **Launch instance from AMI**.
@@ -319,6 +354,7 @@ If you want to use existing bucket, you can skip this step.
     - Enter EC2 name, e.g. `app99-demo-win2012r2-ec2`.
     - Select instance type, like `m6a.large`.
     - For key pair, select `Proceed without a key pair`.
+    - Select **default VPC** with public subnet (public IP will be required).
     - Select existing security group that was created earlier - `team99-ec2-importdemo-sg`.
     - Select `gp3` storage type.
     - Expand **Advanced details**, select `team99-ec2-fleet-role` for IAM instance profile.
@@ -340,7 +376,7 @@ If you want to use existing bucket, you can skip this step.
         ![](images/fleetmanager-remote-01.jpg)
     - Enter `Administrator` for username.
     - Enter password that you specified earlier.
-    - Click **Connect**.
+    - Click **Connect**.  
         ![](images/fleetmanager-remote-02.jpg)
         ![](images/fleetmanager-remote-03.jpg)
 
