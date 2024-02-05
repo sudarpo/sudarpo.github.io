@@ -1,5 +1,20 @@
 # How to import on-premises Virtual Machine (VM) to AWS EC2
 
+## Table of contents
+
+* [1. Scenario](#Scenario)
+* [2. Import Steps](#2-pre-requisites)
+    * [1. Create / prepare / download Virtual Harddisk of the target VM](#1-create--prepare--download-virtual-harddisk-of-the-target-vm)
+    * [2. Pre-requisites](#2-pre-requisites)
+    * [3. Upload Virtual Harddisk to S3](#3-upload-virtual-harddisk-to-s3)
+    * [4. Create IAM Role for EC2 Import Task](#4-create-iam-role-for-ec2-import-task)
+    * [5. Create EC2 AMI from Virtual Harddisk](#5-create-ec2-ami-from-virtual-harddisk)
+    * [6. Launch EC2 from the AMI](#6-launch-ec2-from-the-ami)
+    * [7. Cleanup](#7-cleanup)
+* [Side Note - Import and launch Windows 10 in AWS EC2](#side-note---import-and-launch-windows-10-in-aws-ec2)
+* [Side Note - Import and launch Windows 11 in AWS EC2](#side-note---import-and-launch-windows-11-in-aws-ec2)
+* [References](#references)
+
 ## Scenario
 
 There are times when we would like to launch VM/EC2 and that particular VM is not available as AMI in AWS EC2.
@@ -14,6 +29,7 @@ Possible use cases such as:
 
 Some options that we can use.
 - [Windows Server 2012 R2](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2012-r2) > select `VHD download`
+- [Evaluation Center](https://www.microsoft.com/en-us/evalcenter) - registration required
 
 ### 2. Pre-requisites
 
@@ -21,7 +37,7 @@ Some options that we can use.
 1. Install and configure AWS CLI v2
     - [Install](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
     - [Configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-authentication.html)
-1. Budget of about USD2.00-5.00
+1. Budget of about ~USD2.00 for AWS spending (your mileage may vary)
 
 ### 3. Upload Virtual Harddisk to S3
 
@@ -49,7 +65,7 @@ If you want to use existing bucket, you can skip this step.
 
     While waiting for the upload, proceed to next step.
 
-### Create IAM Role for EC2 Import Task
+### 4. Create IAM Role for EC2 Import Task
 
 1. Create a trust policy file, save to your local disk.
 
@@ -143,7 +159,7 @@ If you want to use existing bucket, you can skip this step.
 
         ![](images/roles-01.jpg)
 
-### Create EC2 AMI from Virtual Harddisk
+### 5. Create EC2 AMI from Virtual Harddisk
 
 1. Wait for upload progress to complete. Once upload completed, check the harddisk in S3 bucket.
     ![](images/upload-s3-complete.jpg)
@@ -273,7 +289,7 @@ If you want to use existing bucket, you can skip this step.
         aws ec2 cancel-import-task --region ap-southeast-1 --import-task-id import-ami-0124aff44c9b3411f
         ```
 
-### Launch EC2 from the AMI
+### 6. Launch EC2 from the AMI
 
 1. Create IAM Instance Profile to use SSM Fleet Manager.
 
@@ -330,7 +346,7 @@ If you want to use existing bucket, you can skip this step.
 
 1. Terminate the instance once you are done.
 
-### Cleanup
+### 7. Cleanup
 To ensure that you won't be charged for any further usage, delete all the following resources.
 
 1. Delete all Virtual harddisk files you have uploaded in S3 Bucket.
@@ -339,7 +355,7 @@ To ensure that you won't be charged for any further usage, delete all the follow
 1. Deregister AMI (EC2 > AMIs > Select AMI and deregister it).
 1. Delete snapshots associated with the AMI (EC2 > Snapshots > find the snapshot and delete it).
 
-## Side Note - Import and launch Windows 10
+## Side Note - Import and launch Windows 10 in AWS EC2
 
 1. Download old Windows 10 virtual harddisk from [Archive](https://web.archive.org/web/20200612045637/https://developer.microsoft.com/en-us/windows/downloads/virtual-machines/). 
     - VMWare https://download.microsoft.com/download/b/7/a/b7a6fb6e-cae1-4e19-9249-205803bc4ada/WinDev2004Eval.VMware.zip
@@ -479,7 +495,7 @@ To ensure that you won't be charged for any further usage, delete all the follow
 
 1. Terminate the instance once you are done.
 
-## Side Note - Import and launch Windows 11
+## Side Note - Import and launch Windows 11 in AWS EC2
 
 As of Feb 2024, there was an issue importing Windows 11 image.
 
