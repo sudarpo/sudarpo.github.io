@@ -3,6 +3,10 @@
 
 @import "{{ site.theme }}";
 
+.page-header a {
+    color: #fff;
+}
+
 .main-content {
     height: 80vh;
     position: relative;
