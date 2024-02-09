@@ -387,7 +387,8 @@ To ensure that you won't be charged for any further usage, delete all the follow
 
 1. Delete all Virtual harddisk files you have uploaded in S3 Bucket.
 1. Delete the S3 bucket.
-1. Terminate EC2 instances.
+1. Terminate EC2 instances (EC2 > Instances).
+1. Delete any EBS volumes that are not deleted when EC2 instances are terminated (EC2 > Volumes).
 1. Deregister AMI (EC2 > AMIs > Select AMI and deregister it).
 1. Delete snapshots associated with the AMI (EC2 > Snapshots > find the snapshot and delete it).
 
