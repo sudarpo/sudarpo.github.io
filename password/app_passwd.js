@@ -3,6 +3,7 @@ console.log("App")
 window.onload = () => {
     new Vue({
         el: "#app",
+        delimiters: ['[[{', '}]]'],
         data() {
             return {
                 passwordList: [],
