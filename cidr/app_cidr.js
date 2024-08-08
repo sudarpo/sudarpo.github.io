@@ -113,6 +113,12 @@
             ip: reserved_ip5.join(".")
         });
 
+        const usable_ip_start = [...ip_start];
+        usable_ip_start[3] = usable_ip_start[3] + 4;
+
+        const usable_ip_end = [...ip_end];
+        usable_ip_end[3] = usable_ip_end[3] - 1;
+
         // 10.0.0.0: Network address.
         // 10.0.0.1: Reserved by AWS for the VPC router / default gateway.
         // 10.0.0.2: Reserved by AWS. The IP address of the DNS server is the base of the VPC network range plus two. For VPCs with multiple CIDR blocks, the IP address of the DNS server is located in the primary CIDR. We also reserve the base of each subnet range plus two for all CIDR blocks in the VPC. For more information, see Amazon DNS server.
@@ -138,7 +144,9 @@
             ip_start: ip_start.join("."),
             ip_end: ip_end.join("."),
             total_usable_ips: total_usable_ips,
-            reserved_ips: reserved_ips
+            reserved_ips: reserved_ips,
+            usable_ip_start: usable_ip_start.join("."),
+            usable_ip_end: usable_ip_end.join("."),
         }
 
     }
@@ -152,8 +160,8 @@
         const tableBody = `<tr> \n` +
             `<td>${result.cidr_input}</td> \n` +
             cidr_range_text +
-            `<td>${result.ip_start}</td> \n` +
-            `<td>${result.ip_end}</td> \n` +
+            `<td>${result.ip_start} - ${result.ip_end}</td> \n` +
+            `<td>${result.usable_ip_start} - ${result.usable_ip_end}</td> \n` +
             `<td>${result.netmask}</td> \n` +
             `<td>${result.wildcard_bits}</td> \n` +
             `<td class="text-end">${result.total_host}</td> \n` +
@@ -178,6 +186,7 @@
                             `CIDR Input: ${result.cidr_input} <br/>\n` +
                             `CIDR Range: ${result.cidr_range} <br/>\n` +
                             `IP Range: ${result.ip_start} - ${result.ip_end}<br/>\n` +
+                            `Usable IP (<a href="https://docs.aws.amazon.com/vpc/latest/userguide/subnet-sizing.html#subnet-sizing-ipv4">AWS</a> / <a href="https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-faq#are-there-any-restrictions-on-using-ip-addresses-within-these-subnets">Azure</a>): ${result.usable_ip_start} - ${result.usable_ip_end}<br/>\n` +
                             `Subnet mask: ${result.netmask} <br/>\n` +
                             `Wildcard bits: ${result.wildcard_bits} <br/>\n` +
                             `Total hosts: ${result.total_host} <br/>\n` +
