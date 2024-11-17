@@ -10,16 +10,16 @@ This guide walks you through the steps required to encrypt an existing EC2 volum
 
 ## Steps
 
-1. Review the current EC2 Storage (EC2 > Instances).
+1. Review the current EC2 Storage (EC2 > Instances).  
     - Take note of the `Device name` of the volume (***IMPORTANT**).
     - Click on the `Volume ID` link to navigate to the Volume page.
 
     ![](images/encrypt-ec2-001.jpg)
 
 1. Stop the EC2 instance.  
-    Notes:
-        - Stopping the instance is optional, but it helps to avoid any potential issues with data consistency when copying or migrating data. If you can afford brief downtime, it's a good practice to stop the instance.
-        - To reduce downtime, EC2 can also be stopped after encrypted volume is created (from the unencrypted snapshot). 
+    Notes:  
+    - Stopping the instance is optional, but it helps to avoid any potential issues with data consistency when copying or migrating data. If you can afford brief downtime, it's a good practice to stop the instance.  
+    - To reduce downtime, EC2 can also be stopped after encrypted volume is created (from the unencrypted snapshot). 
 
     ![](images/encrypt-ec2-009.jpg)
 
