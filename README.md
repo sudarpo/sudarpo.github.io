@@ -9,6 +9,7 @@
 
 ## Notes
 - [How to import on-premises Virtual Machine (VM) to AWS EC2](notes/import-vm/readme.md)
+- [How to encrypt existing not-encrypted EC2 instance volume](notes/encrypt-ec2-ebs/readme.md)
 
 ## AWS Labs
 - [SMB File-Server to FSx Windows migration using AWS DataSync](https://github.com/sudarpo/aws-workshop-datasync/tree/main/datasync-smb-to-fsx-workshop)
