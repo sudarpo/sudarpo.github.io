@@ -28,7 +28,7 @@ This guide walks you through the steps required to encrypt an existing EC2 volum
     ![](images/encrypt-ec2-002.jpg)
 
 1. Create encrypted volume from the snapshot.  
-    - Wait for the snapshot status is `Completed'.  
+    - Wait for the snapshot status is `Completed`.  
 
     ![](images/encrypt-ec2-003.jpg)
 
@@ -47,7 +47,7 @@ This guide walks you through the steps required to encrypt an existing EC2 volum
     ![](images/encrypt-ec2-011.jpg)  
 
 1. Detach the unencrypted volume.  
-    - Right click > Detach volume  
+    - Right click > and select Detach volume.  
 
     ![](images/encrypt-ec2-010.jpg)  
 
