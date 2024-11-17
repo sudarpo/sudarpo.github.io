@@ -17,6 +17,9 @@ This guide walks you through the steps required to encrypt an existing EC2 volum
     ![](images/encrypt-ec2-001.jpg)
 
 1. Stop the EC2 instance.  
+    Notes:
+        - Stopping the instance is optional, but it helps to avoid any potential issues with data consistency when copying or migrating data. If you can afford brief downtime, it's a good practice to stop the instance.
+        - To reduce downtime, EC2 can also be stopped after encrypted volume is created (from the unencrypted snapshot). 
 
     ![](images/encrypt-ec2-009.jpg)
 
@@ -72,6 +75,6 @@ This guide walks you through the steps required to encrypt an existing EC2 volum
 > **Encrypt unencrypted resources**  
 You cannot directly encrypt existing unencrypted volumes or snapshots. However, you can create encrypted volumes or snapshots from unencrypted volumes or snapshots. If you enable encryption by default, Amazon EBS automatically encrypts new volumes and snapshots using your default KMS key for EBS encryption. Otherwise, you can enable encryption when you create an individual volume or snapshot, using either the default KMS key for Amazon EBS encryption or a symmetric customer managed encryption key. For more information, see Create an Amazon EBS volume and Copy an Amazon EBS snapshot.
 
-- https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html
-- https://docs.aws.amazon.com/ebs/latest/userguide/how-ebs-encryption-works.html
-- https://docs.aws.amazon.com/ebs/latest/userguide/encryption-examples.html
+- [EBS Encryption](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html)
+- [How EBS Encryption works](https://docs.aws.amazon.com/ebs/latest/userguide/how-ebs-encryption-works.html)
+- [EBS Encryption examples](https://docs.aws.amazon.com/ebs/latest/userguide/encryption-examples.html)
