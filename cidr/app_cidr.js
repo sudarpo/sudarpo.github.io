@@ -30,8 +30,9 @@
     function generateCidrData(cidr_input) {
 
         const cidr_data1 = cidr_input.split("/");
-        const cidr_data2 = cidr_data1[0].split(".");
+        const cidr_data2 = cidr_data1[0].split(".").map(x => parseInt(x));
         const cidr_no = cidr_data1[1];
+        // console.log('cidr_no', cidr_no);
     
         let netmask_bins = ['', '', '', ''];
         let netmask = [];
@@ -42,23 +43,23 @@
     
         // console.log(cidr_data1, cidr_data2);
         const total_host = Math.pow(2, (32 - parseInt(cidr_no)));
-    
+        
         // Calculate netmask
         for (let i = 0; i < cidr_no; i++) {
             let index = parseInt(i / 8);
             netmask_bins[index] += "1";
         }
-    
+        
         for (let i = cidr_no; i < 32; i++) {
             let index = parseInt(i / 8);
             netmask_bins[index] += "0";
         }
-    
+        
         for (let index = 0; index < 4; index++) {
             // Convert netmask (binary) to decimal
             const tempNetmask = parseInt(netmask_bins[index], 2);
             netmask.push(tempNetmask);
-    
+            
             // Calculate wildcard
             const wildcardNumber = 255 - tempNetmask;
             wildcard_bits.push(wildcardNumber);
@@ -112,12 +113,15 @@
             label: "Broadcast Address [AWS/Azure]",
             ip: reserved_ip5.join(".")
         });
-
+        
         const usable_ip_start = [...ip_start];
-        usable_ip_start[3] = usable_ip_start[3] + 4;
-
         const usable_ip_end = [...ip_end];
+
+        usable_ip_start[3] = usable_ip_start[3] + 4;
         usable_ip_end[3] = usable_ip_end[3] - 1;
+        
+        const usable_ip_start_str = (cidr_no > 29) ? 'NA' : usable_ip_start.join(".");
+        const usable_ip_end_str = (cidr_no > 29) ? 'NA' : usable_ip_end.join(".");
 
         // 10.0.0.0: Network address.
         // 10.0.0.1: Reserved by AWS for the VPC router / default gateway.
@@ -132,6 +136,9 @@
         // x.x.x.2, x.x.x.3: Reserved by Azure to map the Azure DNS IPs to the VNet space
         // x.x.x.255: Network broadcast address for subnets of size /25 and larger. This will be a different address in smaller subnets.
 
+        // AWS - The allowed IPv4 CIDR block size for a subnet is between a /28 netmask and /16 netmask. 
+        // Azure - The smallest supported IPv4 subnet is /29, and the largest is /2 (using CIDR subnet definitions). IPv6 subnets must be exactly /64 in size.
+
         const cidr_range = `${ip_start.join(".")}/${cidr_no}`;
         const total_usable_ips = (total_host - 5) > 0 ? (total_host - 5) : 0; 
         
@@ -145,8 +152,8 @@
             ip_end: ip_end.join("."),
             total_usable_ips: total_usable_ips,
             reserved_ips: reserved_ips,
-            usable_ip_start: usable_ip_start.join("."),
-            usable_ip_end: usable_ip_end.join("."),
+            usable_ip_start: usable_ip_start_str,
+            usable_ip_end: usable_ip_end_str,
         }
 
     }
