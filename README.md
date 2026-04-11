@@ -16,6 +16,6 @@
 - [NFS to S3 File Gateway migration using AWS DataSync](https://github.com/sudarpo/aws-workshop-datasync/blob/main/datasync-nfs-to-s3-workshop)
 
 ## Something else
-- [BMWK Framework](https://medium.com/@sudarpo/the-bmwk-framework-diversifying-your-lifes-portfolio-beyond-financial-capital-46727bca5e19?source=github)
+- [Investing in Yourself with the BMWK Framework](https://medium.com/@sudarpo/the-bmwk-framework-diversifying-your-lifes-portfolio-beyond-financial-capital-46727bca5e19?source=github)
 
 ---
